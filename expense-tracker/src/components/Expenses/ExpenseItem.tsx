@@ -43,10 +43,10 @@ function ExpenseItem({title, amount, date}: ExpenseProps) {
 
   return (
     <Card className='expense-item'>
-      <ExpenseDate date={date} />
+      <ExpenseDate date={currentDate} />
       <div className='expense-item__description'>
         <h2>{currentTitle}</h2>
-        <div className='expense-item__price'>${amount}</div>
+        <div className='expense-item__price'>${currentAmount}</div>
       </div>
       <button onClick={titleChangeHandler}>Change Title</button>
     </Card>
