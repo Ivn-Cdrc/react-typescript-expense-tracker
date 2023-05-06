@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, FormEvent } from "react";
 import { useState } from "react";
 import "./ExpenseForm.css";
 
@@ -41,20 +41,51 @@ function ExpenseForm() {
     });
   }
 
+  // when a submit button is pressed, the form will listen to the submit even and trigger this function
+  function submitHandler(event: FormEvent<HTMLFormElement>) {
+    // prevents the default of this request being sent
+    event.preventDefault();
+    
+    // submit the state handlers somewhere
+    console.log(state);
+
+    setState({
+      title: '',
+      amount: 0,
+      date: new Date()
+    });
+  }
+
   return (
-    <form>
+    <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
           <label>Title</label>
-          <input type="text" onChange={titleChangeHandler} />
+          <input 
+            type="text" 
+            value={state.title}
+            onChange={titleChangeHandler} 
+          />
         </div>
         <div className="new-expense__control">
           <label>Amount</label>
-          <input type="number" min="0.01" step="0.01" onChange={amountChangeHandler} />
+          <input 
+            type="number" 
+            min="0.01" 
+            step="0.01"
+            value={state.amount.toString()}
+            onChange={amountChangeHandler} 
+          />
         </div>
         <div className="new-expense__control">
           <label>Date</label>
-          <input type="date" min="2022-01-01" max={dateInputMax} onChange={dateChangeHandler} />
+          <input 
+            type="date" 
+            min="2022-01-01" 
+            max={dateInputMax} 
+            value={state.date.toISOString().split("T")[0]}
+            onChange={dateChangeHandler}
+          />
         </div>
       </div>
       <div className="new-expense__actions">
