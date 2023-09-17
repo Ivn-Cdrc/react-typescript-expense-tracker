@@ -3,11 +3,15 @@ import { ExpenseFormData } from "./ExpenseForm";
 import {v4 as uuidv4} from 'uuid';
 import "./NewExpense.css";
 
-interface ExpenseFormDataWithId extends ExpenseFormData {
+export interface ExpenseFormDataWithId extends ExpenseFormData {
 	id: string;
 }
 
-function NewExpense() {
+interface NewExpenseProps {
+	onAddExpense: (expenseData: ExpenseFormDataWithId) => void;
+}
+
+function NewExpense({onAddExpense}: NewExpenseProps) {
 
 	// we are executing this function inside ExpenseForm. This allows a child component(ExpenseForm) to communicate with the
 	// parent component
@@ -17,7 +21,8 @@ function NewExpense() {
 			...enteredExpenseData,
 			id: uuidv4().toString()
 		};
-		console.log(expenseData);
+		
+		onAddExpense(expenseData);
 	};
 
   return (
