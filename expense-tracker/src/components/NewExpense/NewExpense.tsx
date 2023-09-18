@@ -22,6 +22,8 @@ function NewExpense({onAddExpense}: NewExpenseProps) {
 			id: uuidv4().toString()
 		};
 		
+		// calling a function received through props. We are passing data to the function.
+		// we are lifting the data to the app(parent) component
 		onAddExpense(expenseData);
 	};
 

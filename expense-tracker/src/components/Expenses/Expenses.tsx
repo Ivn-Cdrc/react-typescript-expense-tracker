@@ -1,48 +1,44 @@
 import ExpenseItem from './ExpenseItem';
 import Card from '../UI/Card';
 import "./Expenses.css";
+import { Expense } from '../../App';
+import { useState } from 'react';
 
-interface Expense {
-  id: string;
-  title: string;
-  amount: number;
-  date: Date;
+interface ExpensesProps {
+  items: Expense[];
 }
 
-const expenses: Expense[] = [
-  {
-    id: "e1",
-    title: "Toilet Paper",
-    amount: 94.12,
-    date: new Date(2020, 7, 14),
-  },
-  { id: "e2", title: "New TV", amount: 799.49, date: new Date(2021, 2, 12) },
-  {
-    id: "e3",
-    title: "Car Insurance",
-    amount: 294.67,
-    date: new Date(2021, 2, 28),
-  },
-  {
-    id: "e4",
-    title: "New Desk (Wooden)",
-    amount: 450,
-    date: new Date(2021, 5, 12),
-  },
-];
+function Expenses({items}: ExpensesProps) {
+  const [filteredYear, setFilteredYear] = useState<string>('2020');
+  // if deriving a value from a state, we can just compute the value and place it into a variable
+  // const [filterInfoText, setFilterInfoText] = useState<string>('2019, 2020 & 2022');
+  // when the state changes, this function is called again and a new value is derived
+  let filterInfoText = '2019, 2021 & 2022';
 
-function Expenses() {
+  if (filteredYear === '2019') {
+    filterInfoText = '2020, 2021 & 2022';
+  } else if (filteredYear === '2021') {
+    filterInfoText = '2019, 2020 & 2022';
+  } else {
+    filterInfoText = '2019, 2020 & 2021';
+  }
+
+  function filterChangeHandler(selectedYear: string) {
+    setFilteredYear(selectedYear);
+  }
+
+
   return (
 		<Card className='expenses'>
 			<ExpenseItem 
-				title={expenses[0].title}
-				amount={expenses[0].amount}
-				date={expenses[0].date}
+				title={items[0].title}
+				amount={items[0].amount}
+				date={items[0].date}
 			/>
       <ExpenseItem 
-				title={expenses[1].title}
-				amount={expenses[1].amount}
-				date={expenses[1].date}
+				title={items[1].title}
+				amount={items[1].amount}
+				date={items[1].date}
 			/>
 		</Card>
 	);
