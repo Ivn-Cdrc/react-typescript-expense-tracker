@@ -28,11 +28,11 @@ function Expenses({items}: ExpensesProps) {
     // updating the state
     setFilteredYear(selectedYear);
   }
-
+  
   return (
     <div>
       <Card className='expenses'>
-      <ExpensesFilter selected={filteredYear} onChangeFilter={filterChangeHandler}/>
+      <ExpensesFilter selectedOption={filteredYear} onChangeFilter={filterChangeHandler}/>
         <ExpenseItem 
           title={items[0].title}
           amount={items[0].amount}

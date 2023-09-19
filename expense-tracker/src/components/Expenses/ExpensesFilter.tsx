@@ -2,12 +2,14 @@ import React, { ChangeEvent } from 'react';
 
 import './ExpensesFilter.css';
 
+// prop values and changes to these values itself are not managed by the component
+// itself, but the parent component
 interface ExpensesFilterProps {
-	selected: string;
+	selectedOption: string;
 	onChangeFilter: (selectedYear: string) => void;
 }
 
-function ExpensesFilter({selected, onChangeFilter}: ExpensesFilterProps) {
+function ExpensesFilter({selectedOption, onChangeFilter}: ExpensesFilterProps) {
 	function dropdownChangeHandler(event: ChangeEvent<HTMLSelectElement>) {
 		onChangeFilter(event.target.value);
 	}
@@ -17,7 +19,7 @@ function ExpensesFilter({selected, onChangeFilter}: ExpensesFilterProps) {
     <div className='expenses-filter'>
       <div className='expenses-filter__control'>
         <label>Filter by year</label>
-        <select value={selected} onChange={dropdownChangeHandler}>
+        <select value={selectedOption} onChange={dropdownChangeHandler}>
           <option value='2022'>2022</option>
           <option value='2021'>2021</option>
           <option value='2020'>2020</option>
