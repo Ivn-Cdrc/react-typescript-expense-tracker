@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent } from "react";
+import { ChangeEvent, FormEvent, MouseEventHandler } from "react";
 import { useState } from "react";
 import "./ExpenseForm.css";
 
@@ -10,9 +10,10 @@ export interface ExpenseFormData {
 
 interface ExpenseFormProps {
   onSaveExpenseData: (enteredExpenseData: ExpenseFormData) => void;
+  onCancel: MouseEventHandler<HTMLButtonElement>;
 }
 
-function ExpenseForm({onSaveExpenseData}: ExpenseFormProps) {
+function ExpenseForm({onSaveExpenseData, onCancel}: ExpenseFormProps) {
   const dateInputMax: string = new Date().toISOString().split("T")[0];
 
   // Use this if we are planning on using one state to store multiple state attributes
@@ -126,6 +127,7 @@ function ExpenseForm({onSaveExpenseData}: ExpenseFormProps) {
         </div>
       </div>
       <div className="new-expense__actions">
+        <button type="button" onClick={onCancel}>Cancel</button>
         <button type="submit">Add Expense</button>
       </div>
     </form>
