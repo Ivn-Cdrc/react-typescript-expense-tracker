@@ -3,7 +3,8 @@ import ExpensesFilter from "./ExpensesFilter";
 import Card from "../UI/Card";
 import "./Expenses.css";
 import { Expense } from "../../App";
-import { useState } from "react";
+import { ReactElement, useState } from "react";
+import ExpensesList from "./ExpensesList";
 
 interface ExpensesProps {
   items: Expense[];
@@ -20,10 +21,12 @@ function Expenses({ items }: ExpensesProps) {
     setFilteredYear(selectedYear);
   }
 
+  // filters expenses based on year
   const filteredExpenses: Expense[] = items.filter((expense) => {
     return expense.date.getFullYear().toString() === filteredYear;
   });
 
+  // {condition && html} => with this syntax, the html is rendered if the condition is true
   return (
     <div>
       <Card className="expenses">
@@ -31,14 +34,7 @@ function Expenses({ items }: ExpensesProps) {
           selectedOption={filteredYear}
           onChangeFilter={filterChangeHandler}
         />
-        {filteredExpenses.map((expense) => (
-          <ExpenseItem
-            key={expense.id}
-            title={expense.title}
-            amount={expense.amount}
-            date={expense.date}
-          />
-        ))}
+        <ExpensesList items={filteredExpenses}/>
       </Card>
     </div>
   );
